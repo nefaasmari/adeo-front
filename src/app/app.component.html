@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+          <div class="page-header">
+              <h1><i class="fa fa-event" aria-hidden="true"></i> My Event</h1>
+          </div>
+
+          <div *ngIf="!events || events.length === 0">Aucun Event trouvé</div>
+
+          <div class="media" *ngFor="let event of events">
+              <div class="media-left">
+                  <a href="#">
+                      <img class="media-object" [src]="'assets/' + event.imgUrl">
+                  </a>
+              </div>
+              <div class="media-body">
+                  <h4 class="event media-heading">{{event.title}}</h4>
+                  <div>
+                    <span *ngFor="let band of event.bands; let lastIndex = last">
+                      {{ band.name }}{{ lastIndex ? '' : ', ' }}
+                    </span>
+                    
+                  </div>
+                  <div>
+                    <ngx-stars [size]="event.nbStars" [maxStars]="5" (ratingOutput)="updateStars(event)"></ngx-stars>
+                  </div>
+                  <form>
+                      <textarea placeholder="Ajouter un commentaire" [(ngModel)]="event.comment" (ngModelChange)="updateStars(event)" class="form-control" rows="3" name="commentaire"></textarea>
+                  </form>
+                  <div class="pull-right">
+                      <button (click)="deleteEvent(event)" type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
